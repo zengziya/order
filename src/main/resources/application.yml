@@ -1,0 +1,25 @@
+server:
+  port: 8082
+
+#jdbc
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  application:
+    name: order
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/wintermall
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+#mybatis
+mybatis:
+  type-aliases-package: com.bdqn.order.pojo
+
+  mapperLocations: classpath*:mybatis/**/*Mapper.xml
+
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.order.mapper.OperLogMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.order.pojo.OperLog">
+    <id column="opr_id" jdbcType="INTEGER" property="oprId" />
+    <result column="opr_type" jdbcType="VARCHAR" property="oprType" />
+    <result column="opr_name" jdbcType="VARCHAR" property="oprName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    opr_id, opr_type, opr_name, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wm_oper_log
+    where opr_id = #{oprId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wm_oper_log
+    where opr_id = #{oprId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bdqn.order.pojo.OperLog">
+    insert into wm_oper_log (opr_id, opr_type, opr_name, 
+      create_time)
+    values (#{oprId,jdbcType=INTEGER}, #{oprType,jdbcType=VARCHAR}, #{oprName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.order.pojo.OperLog">
+    insert into wm_oper_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oprId != null">
+        opr_id,
+      </if>
+      <if test="oprType != null">
+        opr_type,
+      </if>
+      <if test="oprName != null">
+        opr_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oprId != null">
+        #{oprId,jdbcType=INTEGER},
+      </if>
+      <if test="oprType != null">
+        #{oprType,jdbcType=VARCHAR},
+      </if>
+      <if test="oprName != null">
+        #{oprName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.order.pojo.OperLog">
+    update wm_oper_log
+    <set>
+      <if test="oprType != null">
+        opr_type = #{oprType,jdbcType=VARCHAR},
+      </if>
+      <if test="oprName != null">
+        opr_name = #{oprName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where opr_id = #{oprId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.order.pojo.OperLog">
+    update wm_oper_log
+    set opr_type = #{oprType,jdbcType=VARCHAR},
+      opr_name = #{oprName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where opr_id = #{oprId,jdbcType=INTEGER}
+  </update>
+</mapper>
